@@ -3,29 +3,9 @@
 // These bindings are public domain.
 
 use super::xlib::{
-    Atom, Bool, Display, Drawable, Status, Time, Visual, Window, XEvent, XSetWindowAttributes, XID,
+    Bool, Display, Time, Window,
 };
-use std::os::raw::{c_int, c_uint, c_ulong};
-
-//
-// functions
-//
-
-x11_link! { Xss, xscrnsaver, ["libXss.so.2", "libXss.so"], 11,
-  pub fn XScreenSaverQueryExtension (_1: *mut Display, _2: *mut c_int, _3: *mut c_int) -> Bool,
-  pub fn XScreenSaverQueryVersion (_1: *mut Display, _2: *mut c_int, _3: *mut c_int) -> Status,
-  pub fn XScreenSaverAllocInfo () -> *mut XScreenSaverInfo,
-  pub fn XScreenSaverQueryInfo (_1: *mut Display, _2: Drawable, _3: *mut XScreenSaverInfo) -> Status,
-  pub fn XScreenSaverSelectInput (_1: *mut Display, _2: Drawable, _3: c_ulong) -> (),
-  pub fn XScreenSaverSetAttributes (_1: *mut Display, _2: Drawable, _3: c_int, _4: c_int, _5: c_uint, _6: c_uint, _7: c_uint, _8: c_int, _9: c_uint, _10: *mut Visual, _11: c_ulong, _12: *mut XSetWindowAttributes) -> (),
-  pub fn XScreenSaverUnsetAttributes (_1: *mut Display, _2: Drawable) -> (),
-  pub fn XScreenSaverRegister (_1: *mut Display, _2: c_int, _3: XID, _4: Atom) -> Status,
-  pub fn XScreenSaverUnregister (_1: *mut Display, _2: c_int) -> Status,
-  pub fn XScreenSaverGetRegistered (_1: *mut Display, _2: c_int, _3: *mut XID, _4: *mut Atom) -> Status,
-  pub fn XScreenSaverSuspend (_1: *mut Display, _2: Bool) -> (),
-variadic:
-globals:
-}
+use std::os::raw::{c_int, c_ulong};
 
 //
 // types
@@ -60,14 +40,6 @@ pub struct XScreenSaverNotifyEvent {
     pub forced: Bool,
     pub time: Time,
 }
-
-event_conversions_and_tests! {
-  xss_notify: XScreenSaverNotifyEvent,
-}
-
-//
-// constants
-//
 
 pub const ScreenSaverName: &str = "MIT-SCREEN-SAVER";
 pub const ScreenSaverPropertyName: &str = "_MIT_SCREEN_SAVER_ID";

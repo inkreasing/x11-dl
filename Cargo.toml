@@ -1,2 +1,3 @@
 [workspace]
 members = ["x11", "x11-dl"]
+resolver = "1"

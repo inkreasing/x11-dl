@@ -4,6 +4,7 @@
 
 use std::os::raw::{c_char, c_int, c_long, c_short, c_uchar, c_uint, c_ulong, c_ushort, c_void};
 
+#[allow(unused_imports)]
 use super::xlib::{
     Display, Region, Screen, Visual, XEvent, XGCValues, XSelectionRequestEvent,
     XSetWindowAttributes, XrmOptionDescList, XrmValue, _XrmHashBucketRec, GC,
@@ -300,22 +301,6 @@ x11_link! { Xt, xt, ["libXt.so.6", "libXt.so"], 300,
   pub fn XtWindow (_1: Widget) -> c_ulong,
   pub fn XtWindowOfObject (_1: Widget) -> c_ulong,
   pub fn XtWindowToWidget (_2: *mut Display, _1: c_ulong) -> Widget,
-variadic:
-  pub fn XtAsprintf (_2: *mut *mut c_char, _1: *const c_char) -> c_uint,
-  pub fn XtVaAppCreateShell (_4: *const c_char, _3: *const c_char, _2: WidgetClass, _1: *mut Display) -> Widget,
-  pub fn XtVaAppInitialize (_7: *mut XtAppContext, _6: *const c_char, _5: XrmOptionDescList, _4: c_uint, _3: *mut c_int, _2: *mut *mut c_char, _1: *mut *mut c_char) -> Widget,
-  pub fn XtVaCreateArgsList (_1: *mut c_void) -> *mut c_void,
-  pub fn XtVaCreateManagedWidget (_3: *const c_char, _2: WidgetClass, _1: Widget) -> Widget,
-  pub fn XtVaCreatePopupShell (_3: *const c_char, _2: WidgetClass, _1: Widget) -> Widget,
-  pub fn XtVaCreateWidget (_3: *const c_char, _2: WidgetClass, _1: Widget) -> Widget,
-  pub fn XtVaGetApplicationResources (_4: Widget, _3: *mut c_void, _2: *mut XtResource, _1: c_uint) -> (),
-  pub fn XtVaGetSubresources (_6: Widget, _5: *mut c_void, _4: *const c_char, _3: *const c_char, _2: *mut XtResource, _1: c_uint) -> (),
-  pub fn XtVaGetSubvalues (_3: *mut c_void, _2: *mut XtResource, _1: c_uint) -> (),
-  pub fn XtVaGetValues (_1: Widget) -> (),
-  pub fn XtVaOpenApplication (_8: *mut XtAppContext, _7: *const c_char, _6: XrmOptionDescList, _5: c_uint, _4: *mut c_int, _3: *mut *mut c_char, _2: *mut *mut c_char, _1: WidgetClass) -> Widget,
-  pub fn XtVaSetSubvalues (_3: *mut c_void, _2: *mut XtResource, _1: c_uint) -> (),
-  pub fn XtVaSetValues (_1: Widget) -> (),
-globals:
 }
 
 //
@@ -354,18 +339,6 @@ pub type XtGeometryResult = c_int;
 pub type XtGrabKind = c_int;
 pub type XtListPosition = c_int;
 
-#[allow(dead_code)]
-#[cfg(test)]
-#[repr(C)]
-enum TestEnum {
-    Variant1,
-    Variant2,
-}
-
-#[test]
-fn enum_size_test() {
-    assert!(::std::mem::size_of::<TestEnum>() == ::std::mem::size_of::<c_int>());
-}
 
 // struct typedefs
 pub type ArgList = *mut Arg;

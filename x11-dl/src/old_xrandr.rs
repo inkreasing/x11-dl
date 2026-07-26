@@ -68,6 +68,4 @@ x11_link! { Xrandr_2_2_0, xrandr, ["libXrandr.so.2.2.0", "libXrandr.so.2", "libX
     pub fn XRRSizes (dpy: *mut Display, screen: c_int, nsizes: *mut c_int) -> *mut XRRScreenSize,
     pub fn XRRTimes (dpy: *mut Display, screen: c_int, config_timestamp: *mut Time) -> Time,
     pub fn XRRUpdateConfiguration (event: *mut XEvent) -> c_int,
-variadic:
-globals:
 }
