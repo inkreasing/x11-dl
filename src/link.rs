@@ -1,12 +1,14 @@
-pub struct MyOnce<T>(std::marker::PhantomData<T>);
+// adding a generic to this type adds a tiny regression
+pub struct MyOnce();
 
-impl<T> MyOnce<T> {
+impl MyOnce {
     pub fn new() -> Self {
         todo!()
     }
-    pub fn get_or_try_init<F, E>(&self, _f: F) -> Result<&T, E>
+    // removing the generic Err type removes the regression
+    pub fn get_or_try_init<F, E>(&self, _f: F) -> Result<(), E>
     where
-        F: FnOnce() -> Result<T, E>,
+        F: FnOnce() -> Result<(), E>,
     {
         todo!()
     }
