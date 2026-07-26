@@ -32,7 +32,10 @@ macro_rules! x11_link {
           unsafe {
             let _funcs = $struct_name {
               // without the question mark and the Ok the slowdown disappears
-              $($fn_name: ::std::mem::transmute(Ok(usize::MAX)?),)*
+              // adding type annotation reduces the slowdown a lot
+              // in the original example the type here was fully specified, this is also why
+              // the regression now is worse than in the crater run
+              $($fn_name: ::std::mem::transmute(Result::<_, _>::Ok(usize::MAX)?),)*
             };
 
             Ok(())
