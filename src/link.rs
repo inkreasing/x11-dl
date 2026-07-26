@@ -16,12 +16,11 @@ impl MyOnce {
 
 macro_rules! x11_link {
   { $struct_name:ident,
-    $(pub fn $fn_name:ident ($($param_name:ident : $param_type:ty),*) -> $ret_type:ty,)*
+    $($fn_name:ident,)*
   } => {
     #[allow(clippy::manual_non_exhaustive)]
-    #[allow(improper_ctypes_definitions)]
     pub struct $struct_name {
-      $(pub $fn_name: unsafe extern "C" fn ($($param_type),*) -> $ret_type,)*
+      $(pub $fn_name: usize,)*
     }
 
     impl $struct_name {
@@ -31,17 +30,16 @@ macro_rules! x11_link {
 
         // THIS IS THE SLOWDOWN
         once.get_or_try_init(|| {
-          unsafe {
             let _funcs = $struct_name {
               // without the question mark and the Ok the slowdown disappears
               // adding type annotation reduces the slowdown a lot
               // in the original example the type here was fully specified, this is also why
               // the regression now is worse than in the crater run
-              $($fn_name: ::std::mem::transmute(Result::<_, _>::Ok(usize::MAX)?),)*
+              // especially the err type is very perf relevant
+              $($fn_name: Result::<usize, _>::Ok(usize::MAX)?,)*
             };
 
             Ok(())
-          }
         })?;
         Ok(())
       }
