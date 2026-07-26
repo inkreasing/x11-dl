@@ -4,17 +4,25 @@
 
 use std::os::raw::{c_char, c_int, c_long, c_short, c_uchar, c_uint, c_ulong, c_ushort, c_void};
 
-#[allow(unused_imports)]
-use super::xlib::{
-    Display, Region, Screen, Visual, XEvent, XGCValues, XSelectionRequestEvent,
-    XSetWindowAttributes, XrmOptionDescList, XrmValue, _XrmHashBucketRec, GC,
-};
+pub enum _XDisplay {}
+pub type Display = _XDisplay;
+pub enum _XRegion {}
+pub type Region = *mut _XRegion;
+pub struct Screen {}
+pub struct Visual {}
+pub union XEvent {
+    pub type_: c_int,
+}
+pub struct XGCValues {}
+pub struct XSelectionRequestEvent {}
+pub struct XSetWindowAttributes {}
+pub struct XrmOptionDescList {}
+pub struct XrmValue {}
+pub enum _XrmHashBucketRec {}
+pub enum _XGC {}
+pub type GC = *mut _XGC;
 
-//
-// functions
-//
-
-x11_link! { Xt, xt, ["libXt.so.6", "libXt.so"], 300,
+x11_link! { Xt,
   pub fn XtAddActions (_2: *mut XtActionsRec, _1: c_uint) -> (),
   pub fn XtAddCallback (_4: Widget, _3: *const c_char, _2: Option<unsafe extern "C" fn (Widget, *mut c_void, *mut c_void)>, _1: *mut c_void) -> (),
   pub fn XtAddCallbacks (_3: Widget, _2: *const c_char, _1: XtCallbackList) -> (),

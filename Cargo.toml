@@ -1,3 +1,15 @@
-[workspace]
-members = ["x11", "x11-dl"]
+[package]
+name = "x11-dl"
+version = "2.21.0"
+authors = [
+    "daggerbot <daggerbot@gmail.com>",
+    "Erle Pereira <erle@erlepereira.com>",
+    "AltF02 <contact@altf2.dev>",
+]
+description = "X11 library bindings for Rust"
+license = "MIT"
+repository = "https://github.com/AltF02/x11-rs.git"
+# workspace = ".."
+edition = "2021"
 resolver = "1"
+

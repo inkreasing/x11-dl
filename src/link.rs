@@ -13,7 +13,7 @@ impl<T> MyOnce<T> {
 }
 
 macro_rules! x11_link {
-  { $struct_name:ident, $pkg_name:ident, [$($lib_name:expr),*], $nsyms:expr,
+  { $struct_name:ident,
     $(pub fn $fn_name:ident ($($param_name:ident : $param_type:ty),*) -> $ret_type:ty,)*
   } => {
     #[allow(clippy::manual_non_exhaustive)]
@@ -25,7 +25,6 @@ macro_rules! x11_link {
     impl $struct_name {
     #[allow(unreachable_code)]
       pub fn open () -> Result<(), ()> {
-        // Cached function pointers and global variables for X11 libraries.
         let once = crate::link::MyOnce::new();
 
         // THIS IS THE SLOWDOWN
@@ -39,9 +38,8 @@ macro_rules! x11_link {
             Ok(())
           }
         })?;
-       todo!()
+        Ok(())
       }
     }
   };
 }
-
